@@ -5,6 +5,11 @@ import { promises } from "fs";
 // Путь к файлу с данными
 const filePath = join(homedir(), "weather-data.json");
 
+const TOKEN_DICTIONARY = {
+  token: "token",
+  city: "city",
+};
+
 // Проверка на существование файла
 const isExist = async (path) => {
   try {
@@ -40,4 +45,4 @@ const getKeyValue = async (key) => {
   return undefined;
 };
 
-export { saveKeyValue, getKeyValue };
+export { saveKeyValue, getKeyValue, TOKEN_DICTIONARY };
