@@ -18,9 +18,26 @@ const saveToken = async (token) => {
   }
 };
 
+// Получить прогноз
+const getForcast = async () => {
+  try {
+    const weather = await getWeather("moscow");
+    console.log(weather);
+  } catch (error) {
+    if (error?.response?.status === 404) {
+      printError("Неверно указан город");
+    } else if (error?.response?.status === 401) {
+      printError("Неверно указан токен");
+    } else {
+      printError(error.message);
+    }
+  }
+};
+
 // Главная ф-ция
 const initCLI = () => {
   const args = getArgs(process.argv);
+  console.log(process.env);
   // Вывести помощь
   if (args.h) {
     printHelp();
@@ -32,8 +49,8 @@ const initCLI = () => {
   if (args.t) {
     return saveToken(args.t);
   }
-  getWeather("moscow");
   // Вывести погоду
+  getForcast();
 };
 
 initCLI();
